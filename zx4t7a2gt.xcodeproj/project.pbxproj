@@ -9,7 +9,7 @@
 /* Begin PBXBuildFile section */
 		CEE024711A6D1DA2005A8A68 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE024701A6D1DA2005A8A68 /* main.m */; };
 		CEE024741A6D1DA2005A8A68 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE024731A6D1DA2005A8A68 /* AppDelegate.m */; };
-		CEE024771A6D1DA2005A8A68 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE024761A6D1DA2005A8A68 /* ViewController.m */; };
+		CEE024771A6D1DA2005A8A68 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE024761A6D1DA2005A8A68 /* MainViewController.m */; };
 		CEE0247A1A6D1DA2005A8A68 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CEE024781A6D1DA2005A8A68 /* Main.storyboard */; };
 		CEE0247C1A6D1DA2005A8A68 /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CEE0247B1A6D1DA2005A8A68 /* Images.xcassets */; };
 		CEE0247F1A6D1DA2005A8A68 /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = CEE0247D1A6D1DA2005A8A68 /* LaunchScreen.xib */; };
@@ -32,8 +32,8 @@
 		CEE024701A6D1DA2005A8A68 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		CEE024721A6D1DA2005A8A68 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		CEE024731A6D1DA2005A8A68 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		CEE024751A6D1DA2005A8A68 /* ViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
-		CEE024761A6D1DA2005A8A68 /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
+		CEE024751A6D1DA2005A8A68 /* MainViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MainViewController.h; sourceTree = "<group>"; };
+		CEE024761A6D1DA2005A8A68 /* MainViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MainViewController.m; sourceTree = "<group>"; };
 		CEE024791A6D1DA2005A8A68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		CEE0247B1A6D1DA2005A8A68 /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		CEE0247E1A6D1DA2005A8A68 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
@@ -83,8 +83,8 @@
 			children = (
 				CEE024721A6D1DA2005A8A68 /* AppDelegate.h */,
 				CEE024731A6D1DA2005A8A68 /* AppDelegate.m */,
-				CEE024751A6D1DA2005A8A68 /* ViewController.h */,
-				CEE024761A6D1DA2005A8A68 /* ViewController.m */,
+				CEE024751A6D1DA2005A8A68 /* MainViewController.h */,
+				CEE024761A6D1DA2005A8A68 /* MainViewController.m */,
 				CEE024781A6D1DA2005A8A68 /* Main.storyboard */,
 				CEE0247B1A6D1DA2005A8A68 /* Images.xcassets */,
 				CEE0247D1A6D1DA2005A8A68 /* LaunchScreen.xib */,
@@ -219,7 +219,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				CEE024771A6D1DA2005A8A68 /* ViewController.m in Sources */,
+				CEE024771A6D1DA2005A8A68 /* MainViewController.m in Sources */,
 				CEE024741A6D1DA2005A8A68 /* AppDelegate.m in Sources */,
 				CEE024711A6D1DA2005A8A68 /* main.m in Sources */,
 			);
@@ -414,6 +414,7 @@
 				CEE024901A6D1DA2005A8A68 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		CEE024911A6D1DA2005A8A68 /* Build configuration list for PBXNativeTarget "zx4t7a2gtTests" */ = {
 			isa = XCConfigurationList;
@@ -422,6 +423,7 @@
 				CEE024931A6D1DA2005A8A68 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

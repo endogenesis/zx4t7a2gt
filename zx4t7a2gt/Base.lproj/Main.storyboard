@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="RFK-kc-GHZ">
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
     </dependencies>
@@ -15,11 +15,43 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dHk-I0-qsY">
+                                <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                            </imageView>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="dHk-I0-qsY" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="0KX-OL-s7J"/>
+                            <constraint firstAttribute="trailing" secondItem="dHk-I0-qsY" secondAttribute="trailing" id="R7n-gI-Pw2"/>
+                            <constraint firstItem="dHk-I0-qsY" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="XE6-nH-i0Q"/>
+                            <constraint firstItem="dHk-I0-qsY" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="e3B-ac-ubI"/>
+                        </constraints>
                     </view>
+                    <navigationItem key="navigationItem" id="Beb-gx-dri"/>
+                    <connections>
+                        <outlet property="imageView" destination="dHk-I0-qsY" id="2iK-0U-0yR"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="629" y="1032"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="gTJ-mB-SY9">
+            <objects>
+                <navigationController id="RFK-kc-GHZ" sceneMemberID="viewController">
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" id="LRH-JM-NDp">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="vkZ-Hp-boP"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="BwH-UQ-qbP" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-110" y="1032"/>
         </scene>
     </scenes>
 </document>

@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6254" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="RFK-kc-GHZ">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6250" systemVersion="14B25" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="RFK-kc-GHZ">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6247"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6244"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--Main View Controller-->
@@ -19,13 +20,23 @@
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="dHk-I0-qsY">
                                 <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                             </imageView>
+                            <slider opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" value="0.5" minValue="0.0" maxValue="1" translatesAutoresizingMaskIntoConstraints="NO" id="h3R-se-80j">
+                                <rect key="frame" x="64" y="540" width="472" height="31"/>
+                                <connections>
+                                    <action selector="onSliderValueChanged:" destination="BYZ-38-t0r" eventType="valueChanged" id="nqY-CD-FoS"/>
+                                </connections>
+                            </slider>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
                         <constraints>
                             <constraint firstItem="dHk-I0-qsY" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="0KX-OL-s7J"/>
+                            <constraint firstItem="h3R-se-80j" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="50" id="Nm7-Ns-xyj"/>
+                            <constraint firstAttribute="centerX" secondItem="h3R-se-80j" secondAttribute="centerX" id="Osm-Vn-Vko"/>
                             <constraint firstAttribute="trailing" secondItem="dHk-I0-qsY" secondAttribute="trailing" id="R7n-gI-Pw2"/>
                             <constraint firstItem="dHk-I0-qsY" firstAttribute="bottom" secondItem="wfy-db-euE" secondAttribute="top" id="XE6-nH-i0Q"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="h3R-se-80j" secondAttribute="trailing" constant="50" id="ctf-1o-e0G"/>
                             <constraint firstItem="dHk-I0-qsY" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="e3B-ac-ubI"/>
+                            <constraint firstAttribute="bottom" secondItem="h3R-se-80j" secondAttribute="bottom" constant="30" id="yUH-UX-ECq"/>
                         </constraints>
                     </view>
                     <navigationItem key="navigationItem" id="Beb-gx-dri"/>

@@ -7,9 +7,11 @@
 //
 #import "TestFilter.h"
 #import "MainViewController.h"
+#import "ImageProcessor.h"
 
 @interface MainViewController ()
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
+@property (strong, nonatomic) ImageProcessor *processor;
 
 @end
 
@@ -22,6 +24,7 @@
     UIImage *testIm= [UIImage imageNamed:@"testImage"];
     [self.imageView setContentMode:UIViewContentModeScaleAspectFit];
     [self.imageView setImage:testIm];
+    self.processor = [[ImageProcessor alloc] init];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -30,7 +33,8 @@
 }
 
 - (IBAction)onSliderValueChanged:(id)sender {
-    [self processImage];
+//    [self processImage];
+    self.imageView.image = [self.processor testProcessor:[UIImage imageNamed:@"testImage"]];
 }
 
 - (void) processImage {

@@ -13,6 +13,8 @@
 		B82E3F691A7C5C8400710958 /* SourceOver.cikernel in Resources */ = {isa = PBXBuildFile; fileRef = B82E3F641A7C5C8400710958 /* SourceOver.cikernel */; };
 		B82E3F6A1A7C5C8400710958 /* SwapRedAndGreen.cikernel in Resources */ = {isa = PBXBuildFile; fileRef = B82E3F651A7C5C8400710958 /* SwapRedAndGreen.cikernel */; };
 		B82E3F6B1A7C5C8400710958 /* Vignette.cikernel in Resources */ = {isa = PBXBuildFile; fileRef = B82E3F661A7C5C8400710958 /* Vignette.cikernel */; };
+		B82E3F6D1A7CEEEF00710958 /* channelShuffle.cikernel in Resources */ = {isa = PBXBuildFile; fileRef = B82E3F6C1A7CEEEF00710958 /* channelShuffle.cikernel */; };
+		B82E3F701A801E2A00710958 /* ImageProcessor.m in Sources */ = {isa = PBXBuildFile; fileRef = B82E3F6F1A801E2A00710958 /* ImageProcessor.m */; };
 		CEE024711A6D1DA2005A8A68 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE024701A6D1DA2005A8A68 /* main.m */; };
 		CEE024741A6D1DA2005A8A68 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE024731A6D1DA2005A8A68 /* AppDelegate.m */; };
 		CEE024771A6D1DA2005A8A68 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE024761A6D1DA2005A8A68 /* MainViewController.m */; };
@@ -40,6 +42,9 @@
 		B82E3F641A7C5C8400710958 /* SourceOver.cikernel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SourceOver.cikernel; path = kernels/SourceOver.cikernel; sourceTree = "<group>"; };
 		B82E3F651A7C5C8400710958 /* SwapRedAndGreen.cikernel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = SwapRedAndGreen.cikernel; path = kernels/SwapRedAndGreen.cikernel; sourceTree = "<group>"; };
 		B82E3F661A7C5C8400710958 /* Vignette.cikernel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; name = Vignette.cikernel; path = kernels/Vignette.cikernel; sourceTree = "<group>"; };
+		B82E3F6C1A7CEEEF00710958 /* channelShuffle.cikernel */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = channelShuffle.cikernel; sourceTree = "<group>"; };
+		B82E3F6E1A801E2A00710958 /* ImageProcessor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ImageProcessor.h; sourceTree = "<group>"; };
+		B82E3F6F1A801E2A00710958 /* ImageProcessor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ImageProcessor.m; sourceTree = "<group>"; };
 		CEE0246B1A6D1DA2005A8A68 /* zx4t7a2gt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = zx4t7a2gt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEE0246F1A6D1DA2005A8A68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEE024701A6D1DA2005A8A68 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -78,6 +83,8 @@
 			children = (
 				B82E3F5D1A7C564700710958 /* TestFilter.h */,
 				B82E3F5E1A7C564700710958 /* TestFilter.m */,
+				B82E3F6E1A801E2A00710958 /* ImageProcessor.h */,
+				B82E3F6F1A801E2A00710958 /* ImageProcessor.m */,
 			);
 			name = Filters;
 			sourceTree = "<group>";
@@ -90,6 +97,7 @@
 				B82E3F641A7C5C8400710958 /* SourceOver.cikernel */,
 				B82E3F651A7C5C8400710958 /* SwapRedAndGreen.cikernel */,
 				B82E3F661A7C5C8400710958 /* Vignette.cikernel */,
+				B82E3F6C1A7CEEEF00710958 /* channelShuffle.cikernel */,
 			);
 			name = Kernels;
 			sourceTree = "<group>";
@@ -236,6 +244,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				B82E3F681A7C5C8400710958 /* MirrorX.cikernel in Resources */,
+				B82E3F6D1A7CEEEF00710958 /* channelShuffle.cikernel in Resources */,
 				B82E3F671A7C5C8400710958 /* AnamorphicStretch.cikernel in Resources */,
 				B82E3F6B1A7C5C8400710958 /* Vignette.cikernel in Resources */,
 				CEE0247A1A6D1DA2005A8A68 /* Main.storyboard in Resources */,
@@ -261,6 +270,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				CEE024771A6D1DA2005A8A68 /* MainViewController.m in Sources */,
+				B82E3F701A801E2A00710958 /* ImageProcessor.m in Sources */,
 				B82E3F5F1A7C564700710958 /* TestFilter.m in Sources */,
 				CEE024741A6D1DA2005A8A68 /* AppDelegate.m in Sources */,
 				CEE024711A6D1DA2005A8A68 /* main.m in Sources */,

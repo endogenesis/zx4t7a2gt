@@ -11,6 +11,8 @@
 
 @interface ImageProcessor : NSObject
 
-- (UIImage *) testProcessor:(UIImage *) image;
+@property (nonatomic, weak) UIImage *image;
+
+- (UIImage *) moveRedChannelWithXOffset:(int) dx YOffset:(int) dy;
 
 @end

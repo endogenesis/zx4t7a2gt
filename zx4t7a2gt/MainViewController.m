@@ -11,7 +11,11 @@
 
 @interface MainViewController ()
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
+
 @property (strong, nonatomic) ImageProcessor *processor;
+
+@property (strong, nonatomic) IBOutlet UISlider *slider;
+
 
 @end
 
@@ -33,17 +37,32 @@
 }
 
 - (IBAction)onSliderValueChanged:(id)sender {
+
 //    [self processImage];
-    self.imageView.image = [self.processor testProcessor:[UIImage imageNamed:@"testImage"]];
+//    dispatch_queue_t serialQueue = dispatch_queue_create("testqueue", NULL);
+//    dispatch_async(serialQueue, ^{
+//        self.processor.image = self.imageView.image;
+//        UIImage *outImage =  [self.processor moveRedChannelWithXOffset:self.slider.value
+//                                                                 YOffset:self.slider.value ];
+//        dispatch_sync(dispatch_get_main_queue(), ^{
+//            [self.imageView setImage:outImage];
+//        });
+//    });
+    
+    self.processor.image = self.imageView.image;
+    UIImage *outImage =  [self.processor moveRedChannelWithXOffset:self.slider.value
+                                                           YOffset:self.slider.value ];
+     [self.imageView setImage:outImage];
+    
 }
 
-- (void) processImage {
+- (void) processImage:(CGFloat) amount {
     
     dispatch_queue_t queue = dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_BACKGROUND, 0);
     dispatch_async(queue, ^{
         
         TestFilter *swapRedAndGreenFilter = [[TestFilter alloc] init];
-        swapRedAndGreenFilter.inputAmount = @1.0;
+        swapRedAndGreenFilter.inputAmount = [[NSNumber alloc] initWithFloat:amount];
         
         CIImage *ciImage = [[CIImage alloc] initWithImage:self.imageView.image];
         [swapRedAndGreenFilter setValue:ciImage forKey:kCIInputImageKey];

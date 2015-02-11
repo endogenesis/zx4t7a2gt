@@ -23,12 +23,12 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(processImage)];
+    self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(processImage:)];
     
-    UIImage *testIm= [UIImage imageNamed:@"testImage"];
+    //UIImage *testIm= [UIImage imageNamed:@"testImage"];
     [self.imageView setContentMode:UIViewContentModeScaleAspectFit];
-    [self.imageView setImage:testIm];
-    self.processor = [[ImageProcessor alloc] init];
+    [self.imageView setImage:[UIImage imageNamed:@"testImage"]];
+    self.processor = [[ImageProcessor alloc] initWithImage:self.imageView.image];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -38,22 +38,7 @@
 
 - (IBAction)onSliderValueChanged:(id)sender {
 
-//    [self processImage];
-//    dispatch_queue_t serialQueue = dispatch_queue_create("testqueue", NULL);
-//    dispatch_async(serialQueue, ^{
-//        self.processor.image = self.imageView.image;
-//        UIImage *outImage =  [self.processor moveRedChannelWithXOffset:self.slider.value
-//                                                                 YOffset:self.slider.value ];
-//        dispatch_sync(dispatch_get_main_queue(), ^{
-//            [self.imageView setImage:outImage];
-//        });
-//    });
-    
-    self.processor.image = self.imageView.image;
-    UIImage *outImage =  [self.processor moveRedChannelWithXOffset:self.slider.value
-                                                           YOffset:self.slider.value ];
-     [self.imageView setImage:outImage];
-    
+    [self.imageView setImage:[_processor shuffleChannels]];
 }
 
 - (void) processImage:(CGFloat) amount {

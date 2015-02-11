@@ -16,92 +16,114 @@
 #define A(x) ( Mask8(x >> 24) )
 #define RGBAMake(r, g, b, a) ( Mask8(r) | Mask8(g) << 8 | Mask8(b) << 16 | Mask8(a) << 24 )
 
-
-#pragma mark - Private
-
 @interface ImageProcessor ()
 
-{
-    int width, height;
-    UInt32 *copyPixels;
-}
+@property (nonatomic, assign) CGContextRef context;
+@property (nonatomic, assign) CGColorSpaceRef colorSpace;
 
+@property (nonatomic, assign, readonly) NSUInteger bytesPerPixel;
+@property (nonatomic, assign, readonly) NSUInteger byresPerRow;
+@property (nonatomic, assign, readonly) NSUInteger bitsPerComponent;
+@property (nonatomic, assign, readonly) NSUInteger pixelsCount;
+
+@property (nonatomic, assign, readonly) NSUInteger width;
+@property (nonatomic, assign, readonly) NSUInteger height;
+
+@property (nonatomic, assign) UInt32 *pixels;
+@property (nonatomic, assign) UInt32 *copyPixels;
 
 @end
 
+
 @implementation ImageProcessor
 
-- (UIImage *) moveRedChannelWithXOffset:(int) dx YOffset:(int) dy {
+- (id) initWithImage:(UIImage *) image {
+    self = [super init];
+    if (self) {
+        
+        CGImageRef inputImage = image.CGImage;
+        
+        [self calculateContextParameters:inputImage];
+        
+        _pixels = calloc(_pixelsCount, sizeof(UInt32));
+        _copyPixels = calloc(_pixelsCount, sizeof(UInt32));
+        
+        _colorSpace = CGColorSpaceCreateDeviceRGB();
+        
+        _context = CGBitmapContextCreate(_pixels, _width, _height, _bitsPerComponent, _byresPerRow, _colorSpace, kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrder32Big);
+        CGContextDrawImage(_context, CGRectMake(0, 0, _width, _height), inputImage);
+        
+        CGImageRelease(inputImage);
+    }
+    return self;
+}
+
+- (UIImage *) shuffleChannels {
     
+    memcpy(_copyPixels, _pixels, _pixelsCount * sizeof(UInt32));
     
     NSDate *methodStart = [NSDate date];
     
-    /* ... Do whatever you need to do ... */
+    UInt32 *currentPixel = _pixels;
     
+    int redDx = arc4random() % 41 - 20;
+    int redDy = arc4random() % 41 - 20;
     
-    CGImageRef inputCGImage = [_image CGImage];
-    width = (int)CGImageGetWidth(inputCGImage);
-    height = (int)CGImageGetHeight(inputCGImage);
+    int greenDx = arc4random() % 41 - 20;
+    int greenDy = arc4random() % 41 - 20;
     
-    NSUInteger bytesPerPixel = 4;
-    NSUInteger bytesPerRow = bytesPerPixel * width;
-    NSUInteger bitsPerComponent = 8;
-    NSUInteger pixelsCount = width * height;
+    int blueDx = arc4random() % 41 - 20;
+    int blueDy = arc4random() % 41 - 20;
     
-    UInt32 *pixels;
-    pixels = (UInt32 *) calloc(pixelsCount, sizeof(UInt32));
-    copyPixels = (UInt32 *) calloc(pixelsCount, sizeof(UInt32));
-    
-    CGColorSpaceRef colorSpace = CGColorSpaceCreateDeviceRGB();
-    CGContextRef context = CGBitmapContextCreate(pixels, width, height,
-                                                 bitsPerComponent, bytesPerRow, colorSpace,
-                                                 kCGImageAlphaPremultipliedLast|kCGBitmapByteOrder32Big);
-    
-    CGContextDrawImage(context, CGRectMake(0, 0, width, height), inputCGImage);
-    
-    memcpy(copyPixels, pixels, pixelsCount * sizeof(UInt32));
-    
-    UInt32 *currentPixel = pixels;
-    
-    for (int j = 0; j < height; j++) {
-        for (int i = 0; i < width; i++) {
+    for (int j = 0; j < _height; j++) {
+        for (int i = 0; i < _width; i++) {
+            UInt8 red = R([self getPixelAtX:(i+redDx) andY:(j+redDy)]);
+            UInt8 green = G([self getPixelAtX:(i+greenDx) andY:(j+greenDy)]);
+            UInt8 blue = B([self getPixelAtX:(i+blueDx) andY:(j+blueDy)]);
+            UInt8 alpha = A(*currentPixel);
             
-            UInt32 color = *currentPixel;
-            UInt32 dxColor = [self getPixelAtX:(i+dx) andY:(j+dy)] ;
-            UInt8 red =  R(dxColor);
-            UInt8 green = G(color);
-            UInt8 blue = B(color);
-            UInt8 alpha = A(color);
             UInt32 newColor = RGBAMake(red, green, blue, alpha);
             memcpy(currentPixel, &newColor, sizeof(UInt32));
             currentPixel++;
         }
     }
     
-    CGImageRef newCGImage = CGBitmapContextCreateImage(context);
-    UIImage * processedImage = [UIImage imageWithCGImage:newCGImage];
-    free(pixels);
-    free(copyPixels);
-    CGColorSpaceRelease(colorSpace);
-    CGContextRelease(context);
+    CGImageRef outCGImage = CGBitmapContextCreateImage(_context);
+    UIImage *outImage = [UIImage imageWithCGImage:outCGImage];
     
     NSDate *methodFinish = [NSDate date];
     NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:methodStart];
     NSLog(@"executionTime = %f", executionTime);
-
-    return processedImage;
+    
+    return outImage;
 }
 
 
-- (UInt32) getPixelAtX:(int) x andY:(int) y {
+#pragma mark Private
+
+- (void) calculateContextParameters:(CGImageRef) inputImage {
     
-    if (x < 0) x = width + x;
-    else if (x >= width) x = x - width;
-    if (y < 0) y = height + y;
-        else if (y >= height) y = y - height;
+    _width = CGImageGetWidth(inputImage);
+    _height = CGImageGetHeight(inputImage);
     
-    UInt32 *returnPixel = copyPixels;
-    NSUInteger dataOffset = x + width * (y - 1);
+    _bytesPerPixel = CGImageGetBitsPerPixel(inputImage)/8;
+    _byresPerRow = _bytesPerPixel * _width;
+    _bitsPerComponent = CGImageGetBitsPerComponent(inputImage);
+    _pixelsCount = _width * _height;
+}
+
+- (UInt32) getPixelAtX:(NSInteger) x andY:(NSInteger) y {
+    
+    x = -x;
+    y = -y;
+    
+    if (x < 0) x = _width + x;
+    else if (x >= _width) x = x - _width;
+    if (y < 0) y = _height + y;
+        else if (y >= _height) y = y - _height;
+    
+    UInt32 *returnPixel = _copyPixels;
+    NSUInteger dataOffset = x + _width * (y - 1);
     returnPixel += dataOffset;
     return *returnPixel;
 }

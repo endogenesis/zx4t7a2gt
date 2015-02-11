@@ -13,6 +13,7 @@
 
 @property (nonatomic, weak) UIImage *image;
 
-- (UIImage *) moveRedChannelWithXOffset:(int) dx YOffset:(int) dy;
+- (UIImage *) shuffleChannels;
+- (id) initWithImage:(UIImage *) image;
 
 @end

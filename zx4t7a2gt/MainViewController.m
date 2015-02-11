@@ -27,7 +27,7 @@
     
     //UIImage *testIm= [UIImage imageNamed:@"testImage"];
     [self.imageView setContentMode:UIViewContentModeScaleAspectFit];
-    [self.imageView setImage:[UIImage imageNamed:@"testImage2"]];
+    [self.imageView setImage:[UIImage imageNamed:@"test"]];
     self.processor = [[ImageProcessor alloc] initWithImage:self.imageView.image];
 }
 
@@ -39,14 +39,22 @@
 - (IBAction)onSliderValueChanged:(id)sender {
     
 
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+//        UIImage *newImage = [_processor shuffleChannels];
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//              [self.imageView setImage:newImage];
+//        });
+//
+//    });
+
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
         UIImage *newImage = [_processor shuffleChannels];
         dispatch_async(dispatch_get_main_queue(), ^{
-              [self.imageView setImage:newImage];
+            [self.imageView setImage:newImage];
         });
-
+        
     });
-    
+
 }
 
 - (void) processImage:(CGFloat) amount {

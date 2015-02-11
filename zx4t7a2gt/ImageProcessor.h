@@ -16,4 +16,8 @@
 - (UIImage *) shuffleChannels;
 - (id) initWithImage:(UIImage *) image;
 
+- (UIImage *) moveRedChannelOnDx:(NSInteger) dx andDy:(NSInteger) dy;
+- (UIImage *) moveGreenChannelOnDx:(NSInteger) dx andDy:(NSInteger) dy;
+- (UIImage *) moveBlueChannelOnDx:(NSInteger) dx andDy:(NSInteger) dy;
+
 @end

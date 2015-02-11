@@ -10,7 +10,7 @@
 
 
 #define Mask8(x) ( (x) & 0xFF )
-#define R(x) ( Mask8(x) )
+#define R(x) ( Mask8(x ) )
 #define G(x) ( Mask8(x >> 8 ) )
 #define B(x) ( Mask8(x >> 16) )
 #define A(x) ( Mask8(x >> 24) )
@@ -50,7 +50,7 @@
         
         _colorSpace = CGColorSpaceCreateDeviceRGB();
         
-        _context = CGBitmapContextCreate(_pixels, _width, _height, _bitsPerComponent, _byresPerRow, _colorSpace, kCGImageAlphaPremultipliedFirst | kCGBitmapByteOrder32Big);
+        _context = CGBitmapContextCreate(_pixels, _width, _height, _bitsPerComponent, _byresPerRow, _colorSpace, kCGImageAlphaPremultipliedLast | kCGBitmapByteOrder32Big);
         CGContextDrawImage(_context, CGRectMake(0, 0, _width, _height), inputImage);
         
         CGImageRelease(inputImage);
@@ -98,6 +98,98 @@
     return outImage;
 }
 
+- (UIImage *) moveRedChannelOnDx:(NSInteger) dx andDy:(NSInteger) dy {
+    
+    memcpy(_copyPixels, _pixels, _pixelsCount * sizeof(UInt32));
+    
+    NSDate *methodStart = [NSDate date];
+    
+    UInt32 *currentPixel = _pixels;
+    
+    for (int j = 0; j < _height; j++) {
+        for (int i = 0; i < _width; i++) {
+            UInt8 red = R([self getPixelAtX:(i + dx) andY:(j + dy)]);
+            UInt8 green = G(*currentPixel);
+            UInt8 blue = B(*currentPixel);
+            UInt8 alpha = A(*currentPixel);
+            
+            UInt32 newColor = RGBAMake(red, green, blue, alpha);
+            memcpy(currentPixel, &newColor, sizeof(UInt32));
+            currentPixel++;
+        }
+    }
+    
+    CGImageRef outCGImage = CGBitmapContextCreateImage(_context);
+    UIImage *outImage = [UIImage imageWithCGImage:outCGImage];
+    
+    NSDate *methodFinish = [NSDate date];
+    NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:methodStart];
+    NSLog(@"executionTime = %f", executionTime);
+    
+    return outImage;
+}
+
+- (UIImage *) moveGreenChannelOnDx:(NSInteger) dx andDy:(NSInteger) dy {
+    
+    memcpy(_copyPixels, _pixels, _pixelsCount * sizeof(UInt32));
+    
+    NSDate *methodStart = [NSDate date];
+    
+    UInt32 *currentPixel = _pixels;
+    
+    for (int j = 0; j < _height; j++) {
+        for (int i = 0; i < _width; i++) {
+            UInt8 red = R(*currentPixel);
+            UInt8 green = G([self getPixelAtX:(i + dx) andY:(j + dy)]);
+            UInt8 blue = B(*currentPixel);
+            UInt8 alpha = A(*currentPixel);
+            
+            UInt32 newColor = RGBAMake(red, green, blue, alpha);
+            memcpy(currentPixel, &newColor, sizeof(UInt32));
+            currentPixel++;
+        }
+    }
+    
+    CGImageRef outCGImage = CGBitmapContextCreateImage(_context);
+    UIImage *outImage = [UIImage imageWithCGImage:outCGImage];
+    
+    NSDate *methodFinish = [NSDate date];
+    NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:methodStart];
+    NSLog(@"executionTime = %f", executionTime);
+    
+    return outImage;
+}
+
+- (UIImage *) moveBlueChannelOnDx:(NSInteger) dx andDy:(NSInteger) dy {
+    
+    memcpy(_copyPixels, _pixels, _pixelsCount * sizeof(UInt32));
+    
+    NSDate *methodStart = [NSDate date];
+    
+    UInt32 *currentPixel = _pixels;
+    
+    for (int j = 0; j < _height; j++) {
+        for (int i = 0; i < _width; i++) {
+            UInt8 red = R(*currentPixel);
+            UInt8 green = G(*currentPixel);
+            UInt8 blue = B([self getPixelAtX:(i + dx) andY:(j+dy)]);
+            UInt8 alpha = A(*currentPixel);
+            
+            UInt32 newColor = RGBAMake(red, green, blue, alpha);
+            memcpy(currentPixel, &newColor, sizeof(UInt32));
+            currentPixel++;
+        }
+    }
+    
+    CGImageRef outCGImage = CGBitmapContextCreateImage(_context);
+    UIImage *outImage = [UIImage imageWithCGImage:outCGImage];
+    
+    NSDate *methodFinish = [NSDate date];
+    NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:methodStart];
+    NSLog(@"executionTime = %f", executionTime);
+    
+    return outImage;
+}
 
 #pragma mark Private
 

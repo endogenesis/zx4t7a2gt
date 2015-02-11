@@ -114,8 +114,8 @@
 
 - (UInt32) getPixelAtX:(NSInteger) x andY:(NSInteger) y {
     
-    x = -x;
-    y = -y;
+   // x = -x;
+   // y = -y;
     
     if (x < 0) x = _width + x;
     else if (x >= _width) x = x - _width;

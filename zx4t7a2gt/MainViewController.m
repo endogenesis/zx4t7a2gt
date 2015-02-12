@@ -46,9 +46,10 @@
 //        });
 //
 //    });
-
+    
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        UIImage *newImage = [_processor shuffleChannels];
+        UIImage *newImage = [_processor moveChannel:ENChannelRed OnDx:10 andDy:-5];
+    //    UIImage *newImage = [_processor moveGreenChannelOnDx:10 andDy:-5];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.imageView setImage:newImage];
         });

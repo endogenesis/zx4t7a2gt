@@ -44,7 +44,6 @@
         CGImageRef inputImage = image.CGImage;
         
         [self calculateContextParameters:inputImage];
-        
         _pixels = calloc(_pixelsCount, sizeof(UInt32));
         _copyPixels = calloc(_pixelsCount, sizeof(UInt32));
         
@@ -84,6 +83,43 @@
             
             UInt32 newColor = RGBAMake(red, green, blue, alpha);
             memcpy(currentPixel, &newColor, sizeof(UInt32));
+            currentPixel++;
+        }
+    }
+    
+    CGImageRef outCGImage = CGBitmapContextCreateImage(_context);
+    UIImage *outImage = [UIImage imageWithCGImage:outCGImage];
+    
+    NSDate *methodFinish = [NSDate date];
+    NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:methodStart];
+    NSLog(@"executionTime = %f", executionTime);
+    
+    return outImage;
+}
+
+
+- (UIImage *) moveChannel:(ENChannelType) channel OnDx:(NSInteger) dx andDy:(NSInteger) dy {
+    
+    memcpy(_copyPixels, _pixels, _pixelsCount * sizeof(UInt32));
+    
+    NSDate *methodStart = [NSDate date];
+    
+    UInt32 *currentPixel = _pixels;
+    
+    for (int j = 0; j < _height; j++) {
+        for (int i = 0; i < _width; i++) {
+            
+            UInt8 red, green, blue, alpha;
+            UInt32 pixelFromOldImage = [self getPixelAtX:(i + dx) andY:(j + dy)];
+            
+            if (channel & ENChannelRed)       red = R(pixelFromOldImage);   else red = R(*currentPixel);
+            if (channel & ENChannelGreen)   green = G(pixelFromOldImage); else green = G(*currentPixel);
+            if (channel & ENChannelBlue)     blue = B(pixelFromOldImage);  else blue = B(*currentPixel);
+            if (channel & ENChannelAlpha)   alpha = A(pixelFromOldImage);   else alpha = A(*currentPixel);
+            
+            UInt32 newColor = RGBAMake(red, green, blue, alpha);
+            memcpy(currentPixel, &newColor, sizeof(UInt32));
+            
             currentPixel++;
         }
     }

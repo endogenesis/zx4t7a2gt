@@ -115,7 +115,7 @@
             if (channel & ENChannelRed)       red = R(pixelFromOldImage);   else red = R(*currentPixel);
             if (channel & ENChannelGreen)   green = G(pixelFromOldImage); else green = G(*currentPixel);
             if (channel & ENChannelBlue)     blue = B(pixelFromOldImage);  else blue = B(*currentPixel);
-            if (channel & ENChannelAlpha)   alpha = A(pixelFromOldImage);   else alpha = A(*currentPixel);
+            if (channel & ENChannelAlpha)   alpha = A(pixelFromOldImage); else alpha = A(*currentPixel);
             
             UInt32 newColor = RGBAMake(red, green, blue, alpha);
             memcpy(currentPixel, &newColor, sizeof(UInt32));
@@ -132,6 +132,24 @@
     NSLog(@"executionTime = %f", executionTime);
     
     return outImage;
+}
+
+- (UIImage *) imageWithScanLines:(CGFloat) width :(UIColor *) color {
+    
+    CGContextSaveGState(_context);
+    
+    CGContextSetStrokeColorWithColor(_context, [[UIColor blueColor] CGColor]);
+    CGContextSetLineWidth(_context, 3.0);
+    CGContextMoveToPoint(_context, 0, 0);
+    CGContextAddLineToPoint(_context, _width, _height);
+    CGContextDrawPath(_context, kCGPathStroke);
+    
+    CGImageRef outCGImage = CGBitmapContextCreateImage(_context);
+    UIImage *outImage = [UIImage imageWithCGImage:outCGImage];
+    
+    CGContextRestoreGState(_context);
+    
+    return  outImage;
 }
 
 - (UIImage *) moveRedChannelOnDx:(NSInteger) dx andDy:(NSInteger) dy {

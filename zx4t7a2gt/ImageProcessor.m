@@ -138,11 +138,15 @@
     
     CGContextSaveGState(_context);
     
-    CGContextSetStrokeColorWithColor(_context, [[UIColor blueColor] CGColor]);
-    CGContextSetLineWidth(_context, 3.0);
-    CGContextMoveToPoint(_context, 0, 0);
-    CGContextAddLineToPoint(_context, _width, _height);
-    CGContextDrawPath(_context, kCGPathStroke);
+    CGContextSetStrokeColorWithColor(_context, color.CGColor);
+    CGContextSetLineWidth(_context, width);
+    
+    for (int i = 1; i <_height; i+=width * 2) {
+        
+        CGContextMoveToPoint(_context, 0, i);
+        CGContextAddLineToPoint(_context, _width, i);
+        CGContextDrawPath(_context, kCGPathStroke);
+    }
     
     CGImageRef outCGImage = CGBitmapContextCreateImage(_context);
     UIImage *outImage = [UIImage imageWithCGImage:outCGImage];
@@ -152,97 +156,8 @@
     return  outImage;
 }
 
-- (UIImage *) moveRedChannelOnDx:(NSInteger) dx andDy:(NSInteger) dy {
-    
-    memcpy(_copyPixels, _pixels, _pixelsCount * sizeof(UInt32));
-    
-    NSDate *methodStart = [NSDate date];
-    
-    UInt32 *currentPixel = _pixels;
-    
-    for (int j = 0; j < _height; j++) {
-        for (int i = 0; i < _width; i++) {
-            UInt8 red = R([self getPixelAtX:(i + dx) andY:(j + dy)]);
-            UInt8 green = G(*currentPixel);
-            UInt8 blue = B(*currentPixel);
-            UInt8 alpha = A(*currentPixel);
-            
-            UInt32 newColor = RGBAMake(red, green, blue, alpha);
-            memcpy(currentPixel, &newColor, sizeof(UInt32));
-            currentPixel++;
-        }
-    }
-    
-    CGImageRef outCGImage = CGBitmapContextCreateImage(_context);
-    UIImage *outImage = [UIImage imageWithCGImage:outCGImage];
-    
-    NSDate *methodFinish = [NSDate date];
-    NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:methodStart];
-    NSLog(@"executionTime = %f", executionTime);
-    
-    return outImage;
-}
-
-- (UIImage *) moveGreenChannelOnDx:(NSInteger) dx andDy:(NSInteger) dy {
-    
-    memcpy(_copyPixels, _pixels, _pixelsCount * sizeof(UInt32));
-    
-    NSDate *methodStart = [NSDate date];
-    
-    UInt32 *currentPixel = _pixels;
-    
-    for (int j = 0; j < _height; j++) {
-        for (int i = 0; i < _width; i++) {
-            UInt8 red = R(*currentPixel);
-            UInt8 green = G([self getPixelAtX:(i + dx) andY:(j + dy)]);
-            UInt8 blue = B(*currentPixel);
-            UInt8 alpha = A(*currentPixel);
-            
-            UInt32 newColor = RGBAMake(red, green, blue, alpha);
-            memcpy(currentPixel, &newColor, sizeof(UInt32));
-            currentPixel++;
-        }
-    }
-    
-    CGImageRef outCGImage = CGBitmapContextCreateImage(_context);
-    UIImage *outImage = [UIImage imageWithCGImage:outCGImage];
-    
-    NSDate *methodFinish = [NSDate date];
-    NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:methodStart];
-    NSLog(@"executionTime = %f", executionTime);
-    
-    return outImage;
-}
-
-- (UIImage *) moveBlueChannelOnDx:(NSInteger) dx andDy:(NSInteger) dy {
-    
-    memcpy(_copyPixels, _pixels, _pixelsCount * sizeof(UInt32));
-    
-    NSDate *methodStart = [NSDate date];
-    
-    UInt32 *currentPixel = _pixels;
-    
-    for (int j = 0; j < _height; j++) {
-        for (int i = 0; i < _width; i++) {
-            UInt8 red = R(*currentPixel);
-            UInt8 green = G(*currentPixel);
-            UInt8 blue = B([self getPixelAtX:(i + dx) andY:(j+dy)]);
-            UInt8 alpha = A(*currentPixel);
-            
-            UInt32 newColor = RGBAMake(red, green, blue, alpha);
-            memcpy(currentPixel, &newColor, sizeof(UInt32));
-            currentPixel++;
-        }
-    }
-    
-    CGImageRef outCGImage = CGBitmapContextCreateImage(_context);
-    UIImage *outImage = [UIImage imageWithCGImage:outCGImage];
-    
-    NSDate *methodFinish = [NSDate date];
-    NSTimeInterval executionTime = [methodFinish timeIntervalSinceDate:methodStart];
-    NSLog(@"executionTime = %f", executionTime);
-    
-    return outImage;
+- (void) restorePrevious {
+    memcpy(_pixels, _copyPixels, _pixelsCount * sizeof(UInt32));
 }
 
 #pragma mark Private

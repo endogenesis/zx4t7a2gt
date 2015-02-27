@@ -21,11 +21,14 @@ typedef NS_OPTIONS(NSUInteger, ENChannelType) {
 
 @property (nonatomic, weak) UIImage *image;
 
-- (UIImage *) shuffleChannels;
 - (id) initWithImage:(UIImage *) image;
+
+//filters
 - (UIImage *) moveChannel:(ENChannelType) channel OnDx:(NSInteger) dx andDy:(NSInteger) dy;
-- (UIImage *) moveRedChannelOnDx:(NSInteger) dx andDy:(NSInteger) dy;
-- (UIImage *) moveGreenChannelOnDx:(NSInteger) dx andDy:(NSInteger) dy;
-- (UIImage *) moveBlueChannelOnDx:(NSInteger) dx andDy:(NSInteger) dy;
+- (UIImage *) imageWithScanLines:(CGFloat) width :(UIColor *) color;
+- (UIImage *) shuffleChannels;
+
+//utils
+- (void) restorePrevious;
 
 @end

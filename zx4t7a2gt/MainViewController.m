@@ -10,10 +10,13 @@
 #import "ImageProcessor.h"
 
 @interface MainViewController ()
+
+{
+    dispatch_queue_t serial_que;
+}
+
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
-
 @property (strong, nonatomic) ImageProcessor *processor;
-
 @property (strong, nonatomic) IBOutlet UISlider *slider;
 
 
@@ -25,9 +28,11 @@
     [super viewDidLoad];
     self.navigationItem.rightBarButtonItem = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone target:self action:@selector(processImage:)];
     
-    //UIImage *testIm= [UIImage imageNamed:@"testImage"];
+    serial_que = dispatch_queue_create("endo_serial_que", 0);
+    
     [self.imageView setContentMode:UIViewContentModeScaleAspectFit];
     [self.imageView setImage:[UIImage imageNamed:@"test"]];
+    
     self.processor = [[ImageProcessor alloc] initWithImage:self.imageView.image];
 }
 
@@ -38,24 +43,25 @@
 
 - (IBAction)onSliderValueChanged:(id)sender {
     
-
-//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-//        UIImage *newImage = [_processor shuffleChannels];
-//        dispatch_async(dispatch_get_main_queue(), ^{
-//              [self.imageView setImage:newImage];
-//        });
-//
-//    });
     
-    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
-        UIImage *newImage = [_processor moveChannel:ENChannelRed OnDx:10 andDy:-5];
-    //    UIImage *newImage = [_processor moveGreenChannelOnDx:10 andDy:-5];
+    dispatch_async(serial_que, ^{
+        [_processor shuffleChannels];
+        UIImage *newImage = [_processor imageWithScanLines:3.0 :[UIColor blackColor]];
+        [_processor restorePrevious];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.imageView setImage:newImage];
         });
         
     });
-
+    
+//    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_HIGH, 0), ^{
+//        UIImage *newImage = [_processor shuffleChannels];
+//        [_processor restorePrevious];
+//        dispatch_async(dispatch_get_main_queue(), ^{
+//            [self.imageView setImage:newImage];
+//        });
+//        
+//    });
 }
 
 - (void) processImage:(CGFloat) amount {

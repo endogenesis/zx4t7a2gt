@@ -156,7 +156,7 @@
     return  outImage;
 }
 
-- (void) restorePrevious {
+- (void) restorePreviousImageState {
     memcpy(_pixels, _copyPixels, _pixelsCount * sizeof(UInt32));
 }
 

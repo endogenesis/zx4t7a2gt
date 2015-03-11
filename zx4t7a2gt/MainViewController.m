@@ -8,8 +8,9 @@
 #import "TestFilter.h"
 #import "MainViewController.h"
 #import "ImageProcessor.h"
+#import "ASMediaFocusManager.h"
 
-@interface MainViewController ()
+@interface MainViewController () <ASMediasFocusDelegate>
 
 {
     dispatch_queue_t serial_que;
@@ -18,6 +19,8 @@
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) ImageProcessor *processor;
 @property (strong, nonatomic) IBOutlet UISlider *slider;
+
+@property (strong, nonatomic) ASMediaFocusManager *mediaFocusManager;
 
 
 @end
@@ -31,9 +34,15 @@
     serial_que = dispatch_queue_create("endo_serial_que", 0);
     
     [self.imageView setContentMode:UIViewContentModeScaleAspectFit];
-    [self.imageView setImage:[UIImage imageNamed:@"test"]];
+    [self.imageView setImage:[UIImage imageNamed:@"testImage"]];
     
     self.processor = [[ImageProcessor alloc] initWithImage:self.imageView.image];
+    
+    
+    self.mediaFocusManager = [[ASMediaFocusManager alloc] init];
+    self.mediaFocusManager.delegate = self;
+    // Tells which views need to be focusable. You can put your image views in an array and give it to the focus manager.
+    [self.mediaFocusManager installOnView:self.imageView];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -47,7 +56,7 @@
     dispatch_async(serial_que, ^{
         [_processor shuffleChannels];
         UIImage *newImage = [_processor imageWithScanLines:3.0 :[UIColor blackColor]];
-        [_processor restorePrevious];
+        [_processor restorePreviousImageState];
         dispatch_async(dispatch_get_main_queue(), ^{
             [self.imageView setImage:newImage];
         });
@@ -87,5 +96,28 @@
     });
     
 }
+
+#pragma mark ASMediaFocusManager 
+- (UIImageView *)mediaFocusManager:(ASMediaFocusManager *)mediaFocusManager imageViewForView:(UIView *)view
+{
+    return (UIImageView *)view;
+}
+
+- (CGRect)mediaFocusManager:(ASMediaFocusManager *)mediaFocusManager finalFrameForView:(UIView *)view
+{
+    return self.parentViewController.view.bounds;
+}
+
+- (UIViewController *)parentViewControllerForMediaFocusManager:(ASMediaFocusManager *)mediaFocusManager
+{
+    return self.parentViewController;
+}
+
+
+- (NSString *)mediaFocusManager:(ASMediaFocusManager *)mediaFocusManager titleForView:(UIView *)view
+{
+    return @"My title";
+}
+
 
 @end

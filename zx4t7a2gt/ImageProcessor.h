@@ -16,7 +16,6 @@ typedef NS_OPTIONS(NSUInteger, ENChannelType) {
     ENChannelBlue  = 1 << 2,
     ENChannelAlpha = 1 << 3
 };
-
 @interface ImageProcessor : NSObject
 
 @property (nonatomic, weak) UIImage *image;
@@ -29,6 +28,6 @@ typedef NS_OPTIONS(NSUInteger, ENChannelType) {
 - (UIImage *) shuffleChannels;
 
 //utils
-- (void) restorePrevious;
+- (void) restorePreviousImageState;
 
 @end

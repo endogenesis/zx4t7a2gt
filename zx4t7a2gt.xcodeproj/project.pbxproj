@@ -20,6 +20,8 @@
 		CE4550E71AADFEDC001AA7FB /* ASMediaFocusController.xib in Resources */ = {isa = PBXBuildFile; fileRef = CE4550E01AADFEDC001AA7FB /* ASMediaFocusController.xib */; };
 		CE4550E81AADFEDC001AA7FB /* ASMediaFocusManager.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4550E21AADFEDC001AA7FB /* ASMediaFocusManager.m */; };
 		CE4550E91AADFEDC001AA7FB /* ASTransparentView.m in Sources */ = {isa = PBXBuildFile; fileRef = CE4550E41AADFEDC001AA7FB /* ASTransparentView.m */; };
+		CEDB3FA91AB06EF700A25C0A /* ENToolView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDB3FA81AB06EF700A25C0A /* ENToolView.m */; };
+		CEDB3FAD1AB06F4F00A25C0A /* ENToolsScrollView.m in Sources */ = {isa = PBXBuildFile; fileRef = CEDB3FAC1AB06F4F00A25C0A /* ENToolsScrollView.m */; };
 		CEE024711A6D1DA2005A8A68 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE024701A6D1DA2005A8A68 /* main.m */; };
 		CEE024741A6D1DA2005A8A68 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE024731A6D1DA2005A8A68 /* AppDelegate.m */; };
 		CEE024771A6D1DA2005A8A68 /* MainViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = CEE024761A6D1DA2005A8A68 /* MainViewController.m */; };
@@ -59,6 +61,10 @@
 		CE4550E21AADFEDC001AA7FB /* ASMediaFocusManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASMediaFocusManager.m; sourceTree = "<group>"; };
 		CE4550E31AADFEDC001AA7FB /* ASTransparentView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ASTransparentView.h; sourceTree = "<group>"; };
 		CE4550E41AADFEDC001AA7FB /* ASTransparentView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ASTransparentView.m; sourceTree = "<group>"; };
+		CEDB3FA71AB06EF700A25C0A /* ENToolView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ENToolView.h; sourceTree = "<group>"; };
+		CEDB3FA81AB06EF700A25C0A /* ENToolView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ENToolView.m; sourceTree = "<group>"; };
+		CEDB3FAB1AB06F4F00A25C0A /* ENToolsScrollView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ENToolsScrollView.h; path = UI/ENToolsScrollView.h; sourceTree = "<group>"; };
+		CEDB3FAC1AB06F4F00A25C0A /* ENToolsScrollView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ENToolsScrollView.m; path = UI/ENToolsScrollView.m; sourceTree = "<group>"; };
 		CEE0246B1A6D1DA2005A8A68 /* zx4t7a2gt.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = zx4t7a2gt.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CEE0246F1A6D1DA2005A8A68 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		CEE024701A6D1DA2005A8A68 /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -97,8 +103,6 @@
 			children = (
 				B82E3F5D1A7C564700710958 /* TestFilter.h */,
 				B82E3F5E1A7C564700710958 /* TestFilter.m */,
-				B82E3F6E1A801E2A00710958 /* ImageProcessor.h */,
-				B82E3F6F1A801E2A00710958 /* ImageProcessor.m */,
 			);
 			name = Filters;
 			sourceTree = "<group>";
@@ -132,6 +136,50 @@
 			path = ASMediaFocusManager;
 			sourceTree = "<group>";
 		};
+		CEDB3FA01AB06DD700A25C0A /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				CE4550DB1AADFEDC001AA7FB /* ASMediaFocusManager */,
+			);
+			name = Utils;
+			sourceTree = "<group>";
+		};
+		CEDB3FA11AB06DFB00A25C0A /* ImageProcessor */ = {
+			isa = PBXGroup;
+			children = (
+				B82E3F6E1A801E2A00710958 /* ImageProcessor.h */,
+				B82E3F6F1A801E2A00710958 /* ImageProcessor.m */,
+			);
+			name = ImageProcessor;
+			sourceTree = "<group>";
+		};
+		CEDB3FA51AB06E9C00A25C0A /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				CEDB3FAA1AB06F0C00A25C0A /* ENTool */,
+				CEDB3FAE1AB06F5600A25C0A /* ETToolsScrollView */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		CEDB3FAA1AB06F0C00A25C0A /* ENTool */ = {
+			isa = PBXGroup;
+			children = (
+				CEDB3FA71AB06EF700A25C0A /* ENToolView.h */,
+				CEDB3FA81AB06EF700A25C0A /* ENToolView.m */,
+			);
+			name = ENTool;
+			sourceTree = "<group>";
+		};
+		CEDB3FAE1AB06F5600A25C0A /* ETToolsScrollView */ = {
+			isa = PBXGroup;
+			children = (
+				CEDB3FAB1AB06F4F00A25C0A /* ENToolsScrollView.h */,
+				CEDB3FAC1AB06F4F00A25C0A /* ENToolsScrollView.m */,
+			);
+			name = ETToolsScrollView;
+			sourceTree = "<group>";
+		};
 		CEE024621A6D1DA2005A8A68 = {
 			isa = PBXGroup;
 			children = (
@@ -153,11 +201,13 @@
 		CEE0246D1A6D1DA2005A8A68 /* zx4t7a2gt */ = {
 			isa = PBXGroup;
 			children = (
-				CE4550DB1AADFEDC001AA7FB /* ASMediaFocusManager */,
 				CEE024721A6D1DA2005A8A68 /* AppDelegate.h */,
 				CEE024731A6D1DA2005A8A68 /* AppDelegate.m */,
 				CEE024751A6D1DA2005A8A68 /* MainViewController.h */,
 				CEE024761A6D1DA2005A8A68 /* MainViewController.m */,
+				CEDB3FA51AB06E9C00A25C0A /* Views */,
+				CEDB3FA11AB06DFB00A25C0A /* ImageProcessor */,
+				CEDB3FA01AB06DD700A25C0A /* Utils */,
 				B82E3F611A7C5C1000710958 /* Kernels */,
 				B82E3F601A7C5BF900710958 /* Filters */,
 				CEE024781A6D1DA2005A8A68 /* Main.storyboard */,
@@ -305,6 +355,8 @@
 				CE4550E51AADFEDC001AA7FB /* ASImageScrollView.m in Sources */,
 				CE4550E91AADFEDC001AA7FB /* ASTransparentView.m in Sources */,
 				B82E3F701A801E2A00710958 /* ImageProcessor.m in Sources */,
+				CEDB3FAD1AB06F4F00A25C0A /* ENToolsScrollView.m in Sources */,
+				CEDB3FA91AB06EF700A25C0A /* ENToolView.m in Sources */,
 				B82E3F5F1A7C564700710958 /* TestFilter.m in Sources */,
 				CEE024741A6D1DA2005A8A68 /* AppDelegate.m in Sources */,
 				CE4550E61AADFEDC001AA7FB /* ASMediaFocusController.m in Sources */,

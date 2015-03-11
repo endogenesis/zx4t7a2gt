@@ -52,7 +52,6 @@
 
 - (IBAction)onSliderValueChanged:(id)sender {
     
-    
     dispatch_async(serial_que, ^{
         [_processor shuffleChannels];
         UIImage *newImage = [_processor imageWithScanLines:3.0 :[UIColor blackColor]];

@@ -8,6 +8,19 @@
 
 #import <UIKit/UIKit.h>
 
+@class ENToolsScrollView;
+
+@protocol ENToolsScrollViewProtocol <NSObject>
+@required
+- (NSInteger)numberOfViewsForToolsScrollView:(ENToolsScrollView *)scrollView;
+- (UIView *)toolsScrollView:(ENToolsScrollView *)scrollView viewAtIndex:(NSUInteger)index;
+- (void)toolsScrollView:(ENToolsScrollView *)scrollView clickedViewAtIndex:(NSUInteger)index;
+@end
+
 @interface ENToolsScrollView : UIView
+
+@property(nonatomic, weak) id<ENToolsScrollViewProtocol> delegate;
+
+- (void) loadScrollItems;
 
 @end

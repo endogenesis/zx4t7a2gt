@@ -9,8 +9,10 @@
 #import "MainViewController.h"
 #import "ImageProcessor.h"
 #import "ASMediaFocusManager.h"
+#import "ENToolsScrollView.h"
+#import "ENToolView.h"
 
-@interface MainViewController () <ASMediasFocusDelegate>
+@interface MainViewController () <ASMediasFocusDelegate, ENToolsScrollViewProtocol>
 
 {
     dispatch_queue_t serial_que;
@@ -19,6 +21,8 @@
 @property (strong, nonatomic) IBOutlet UIImageView *imageView;
 @property (strong, nonatomic) ImageProcessor *processor;
 @property (strong, nonatomic) IBOutlet UISlider *slider;
+
+@property (strong, nonatomic) NSArray *toolsArray;
 
 @property (strong, nonatomic) ASMediaFocusManager *mediaFocusManager;
 
@@ -43,6 +47,12 @@
     self.mediaFocusManager.delegate = self;
     // Tells which views need to be focusable. You can put your image views in an array and give it to the focus manager.
     [self.mediaFocusManager installOnView:self.imageView];
+    
+    [self createToolsArray];
+    ENToolsScrollView *toolsView  = [[ENToolsScrollView alloc] initWithFrame:CGRectMake(10, 500, 300, 100)];
+    toolsView.delegate = self;
+    [self.view addSubview:toolsView];
+    [toolsView loadScrollItems];
 }
 
 - (void)didReceiveMemoryWarning {
@@ -96,6 +106,18 @@
     
 }
 
+#pragma mark ENToolsScrollViewProtocol
+
+- (NSInteger)numberOfViewsForToolsScrollView:(ENToolsScrollView *)scrollView {
+    return self.toolsArray.count;
+}
+- (UIView *)toolsScrollView:(ENToolsScrollView *)scrollView viewAtIndex:(NSUInteger)index {
+    return self.toolsArray[index];
+}
+- (void)toolsScrollView:(ENToolsScrollView *)scrollView clickedViewAtIndex:(NSUInteger)index {
+    NSLog(@"UIView at index %@", @(index));
+}
+
 #pragma mark ASMediaFocusManager 
 - (UIImageView *)mediaFocusManager:(ASMediaFocusManager *)mediaFocusManager imageViewForView:(UIView *)view
 {
@@ -118,5 +140,15 @@
     return @"My title";
 }
 
+
+- (void) createToolsArray {
+    NSMutableArray *array = [NSMutableArray array];
+    for (int i = 0; i<10; i++) {
+        ENToolView *toolView = [[ENToolView alloc] init];
+        toolView.backgroundColor = [UIColor greenColor];
+        [array addObject:toolView];
+    }
+    self.toolsArray = array;
+}
 
 @end
